@@ -45,5 +45,16 @@
         <item name="android:hint">@string/search_hint</item>
     </style>
 
+    <style name="ToggleSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/button_toggle_normal</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/button_toggle_foreground</item>
+    </style>
+
 </resources>
 

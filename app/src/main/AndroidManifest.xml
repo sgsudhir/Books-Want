@@ -23,7 +23,6 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".SearchResultActivity"></activity>
     </application>
 
 </manifest>
