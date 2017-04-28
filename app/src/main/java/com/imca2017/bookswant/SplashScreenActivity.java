@@ -1,5 +1,6 @@
 package com.imca2017.bookswant;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Thread.sleep(60000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -28,6 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
             SplashScreenActivity.this.finish();
         }
     }

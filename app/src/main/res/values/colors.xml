@@ -3,4 +3,13 @@
     <color name="colorPrimary">#737373</color>
     <color name="colorPrimaryDark">#ff0090</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="theme_primary_text_inverted">#ffffff</color>
+    <color name="theme_secondary_text_inverted">#8affffff</color>
+
+
+
+
+    <color name="separator_line">#ECECEC</color>
+    <color name="title">#222222</color>
+    <color name="subtitle">#999999</color>
 </resources>
