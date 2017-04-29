@@ -1,6 +1,7 @@
 package com.imca2017.bookswant;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.speech.RecognizerIntent;
@@ -14,19 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.imca2017.bookswant.app.AppController;
 import com.imca2017.bookswant.helper.UrlGenerator;
+import com.imca2017.bookswant.pojo.search.Item;
+import com.imca2017.bookswant.pojo.search.SearchResults;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MaterialSearchView searchView;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog pDialog;
     SwitchCompat switchCompat;
     UrlGenerator urlGenerator;
+    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("-----SEARCH URL-----", urlGenerator.getURL());
+                fetchJsonDataAndStartNewActivity(urlGenerator.getURL(), null, null, false);
                 return false;
             }
 
@@ -154,24 +160,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //An Example of fatching JSON using Volly network Library
-    private void loadData() {
-        String url= "https://www.googleapis.com/books/v1/volumes?q=you+can+win&&maxResults=10";
+
+    private void fetchJsonDataAndStartNewActivity(String url, final Intent intent, final Context context, final boolean finishCurrent) {
 
         pDialog = new ProgressDialog(MainActivity.this);
 
-        String tag_json_obj = "json_obj_req";
+        String tag_json_obj = "search_obj_req";
 
-        pDialog.setMessage("Loading...");
+        pDialog.setMessage("Fetching data... ");
         pDialog.show();
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("--Results--", response.toString());
+                        AppController.getInstance().initSearchResultsObject(gson.fromJson(response.toString(), SearchResults.class));
                         pDialog.hide();
-
+                        if (intent != null && context != null) {
+                            context.startActivity(intent);
+                            if (finishCurrent) {
+                                try {
+                                    MainActivity.this.finish();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

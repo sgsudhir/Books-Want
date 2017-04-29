@@ -51,6 +51,7 @@ public class UrlGenerator {
     }
 
     public void setSearchQuery(String searchQuery) {
+        searchQuery = searchQuery.replaceAll("( )+", "+");
         this.searchQuery = searchQuery;
     }
 

@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.imca2017.bookswant.pojo.search.SearchResults;
 import com.imca2017.bookswant.utils.LruBitmapCache;
 
 public class AppController extends Application {
@@ -16,6 +17,7 @@ public class AppController extends Application {
 
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
+	private SearchResults mSearchResults;
 
 	private static AppController mInstance;
 
@@ -27,6 +29,14 @@ public class AppController extends Application {
 
 	public static synchronized AppController getInstance() {
 		return mInstance;
+	}
+
+	public void initSearchResultsObject(SearchResults searchResults) {
+		this.mSearchResults = searchResults;
+	}
+
+	public SearchResults getmSearchResultsObject() {
+		return this.mSearchResults;
 	}
 
 	public RequestQueue getRequestQueue() {
