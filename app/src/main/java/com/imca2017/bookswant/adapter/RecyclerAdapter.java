@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.imca2017.bookswant.MainActivity;
 import com.imca2017.bookswant.R;
+import com.imca2017.bookswant.SearchResultActivity;
 import com.imca2017.bookswant.pojo.RecyclerDataModel;
 import com.squareup.picasso.Picasso;
 
@@ -51,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_card_layout, parent, false);
 
-      //  view.setOnClickListener(MainActivity.recycleItemOnClickListener);
+        view.setOnClickListener(SearchResultActivity.recycleItemOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;

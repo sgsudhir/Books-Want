@@ -10,16 +10,16 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.imca2017.bookswant.adapter.RecyclerAdapter;
 import com.imca2017.bookswant.app.AppController;
+import com.imca2017.bookswant.listener.RecyclerTouchListener;
 import com.imca2017.bookswant.pojo.RecyclerDataModel;
 import com.imca2017.bookswant.pojo.search.Item;
 import com.imca2017.bookswant.pojo.search.SearchResults;
 
 import java.util.ArrayList;
-
-import static com.imca2017.bookswant.app.AppController.getInstance;
 
 public class SearchResultActivity extends AppCompatActivity {
     LinearLayout layout;
@@ -27,7 +27,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private  RecyclerView recyclerView;
     private static ArrayList<RecyclerDataModel> data;
-    static View.OnClickListener recycleItemOnClickListener;
+    public static View.OnClickListener recycleItemOnClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class SearchResultActivity extends AppCompatActivity {
         layout.getLayoutParams().width = (width/10)*3;
         layout.requestLayout();
 */
-        recycleItemOnClickListener = new RecycleItemOnClickListener(this);
+    //    recycleItemOnClickListener = new RecycleItemOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.search_result_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -55,22 +55,36 @@ public class SearchResultActivity extends AppCompatActivity {
         adapter = new RecyclerAdapter(data, this);
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getApplicationContext(), position + " clicked", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
-    private static class RecycleItemOnClickListener implements View.OnClickListener {
-
-        private final Context context;
+ /*   private static class RecycleItemOnClickListener implements View.OnClickListener {
 
         private RecycleItemOnClickListener(Context context) {
             this.context = context;
         }
 
+        private final Context context;
+
         @Override
         public void onClick(View v) {
 
+            Toast.makeText(context.getApplicationContext(), v.getId() + " clicked", Toast.LENGTH_SHORT).show();
         }
     }
+*/
+
+
 
     private void listGenerator() {
 
