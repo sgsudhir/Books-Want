@@ -47,6 +47,7 @@ public class UrlGenerator {
         if (this.orderBy != null && !this.orderBy.isEmpty()) {
             this.url = this.url + "&&orderBy=" + this.orderBy;
         }
+        this.url = this.url + "&&maxResults=40";
         return url;
     }
 

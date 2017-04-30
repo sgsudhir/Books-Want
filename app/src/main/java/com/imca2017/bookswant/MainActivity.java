@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     SwitchCompat switchCompat;
     UrlGenerator urlGenerator;
     Gson gson = new Gson();
+    private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#FF5E5E5E"));
+       // toolbar.setBackgroundColor(Color.parseColor("#FF5E5E5E"));
         urlGenerator = new UrlGenerator();
+        mIntent = new Intent(MainActivity.this, SearchResultActivity.class);
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setVoiceSearch(false);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d("-----SEARCH URL-----", urlGenerator.getURL());
-                fetchJsonDataAndStartNewActivity(urlGenerator.getURL(), null, null, false);
+                fetchJsonDataAndStartNewActivity(urlGenerator.getURL(), mIntent, MainActivity.this, false);
                 return false;
             }
 
