@@ -10,5 +10,10 @@
     <color name="button_toggle_normal">#9b9f5e83</color>
     <color name="theme_primary_text_inverted">#ffffff</color>
     <color name="theme_secondary_text_inverted">#8affffff</color>
+
+    <color name="content_title">#000000</color>
+    <color name="content_one">#3b3b3b</color>
+    <color name="content_two">#4a4a4a</color>
+
     <color name="cyan">#2254c7</color>
 </resources>

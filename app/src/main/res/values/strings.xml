@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Books Want</string>
     <string name="search_hint">Search from a millions of books</string>
+    <string name="dummy_content">In Your Brain at Work, David Rock takes readers inside the heads—literally—of a modern two-career couple as they mentally process their workday to reveal how we can better organize, prioritize, remember, and process our daily lives. Rock, the author of Quiet Leadership and Personal Best, shows how its possible for this couple, and thus the reader, not only to survive in todays overwhelming work environment but succeed in it—and still feel energized and accomplished at the end of the day.</string>
+    <string name="dummy_content_two">the author of Quiet Leadership and Personal Best, shows how its possible for this couple, and thus the reader, not only to survive in todays overwhelming work environment but succeed in it—and still feel energized and accomplished at the end of the day.</string>
+
+
+
+
 
     <string-array name="query_suggestions">
         <item>Android</item>

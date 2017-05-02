@@ -1,6 +1,7 @@
 package com.imca2017.bookswant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -33,9 +34,9 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        layout = (LinearLayout) findViewById(R.id.layout_linear_dynamic);
 
-/*        DisplayMetrics displayMetrics = new DisplayMetrics();
+/*      layout = (LinearLayout) findViewById(R.id.layout_linear_dynamic);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
@@ -44,7 +45,6 @@ public class SearchResultActivity extends AppCompatActivity {
         layout.getLayoutParams().width = (width/10)*3;
         layout.requestLayout();
 */
-    //    recycleItemOnClickListener = new RecycleItemOnClickListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.search_result_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -58,7 +58,9 @@ public class SearchResultActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getApplicationContext(), position + " clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SearchResultActivity.this, BookDetailsActivity.class);
+                intent.putExtra("index", position);
+                startActivity(intent);
             }
 
             @Override
@@ -67,23 +69,6 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         }));
     }
-
- /*   private static class RecycleItemOnClickListener implements View.OnClickListener {
-
-        private RecycleItemOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        private final Context context;
-
-        @Override
-        public void onClick(View v) {
-
-            Toast.makeText(context.getApplicationContext(), v.getId() + " clicked", Toast.LENGTH_SHORT).show();
-        }
-    }
-*/
-
 
 
     private void listGenerator() {

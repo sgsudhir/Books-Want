@@ -30,6 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+            //startActivity(new Intent(SplashScreenActivity.this, BookDetailsActivity.class));
             SplashScreenActivity.this.finish();
         }
     }

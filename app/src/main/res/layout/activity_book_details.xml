@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<us.egek.discrollview2.DiscrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:discrollve="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <us.egek.discrollview2.DiscrollViewContent
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <ImageView
+                    android:id="@+id/activity_detail_image"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="3"
+                    android:src="@drawable/ic_launcher"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="7"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/activity_detail_book_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Your Brain At Work : Strategies for Overcoming Distraction, Regaining Focus, and Working Smarter All Day Long"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/activity_is_book_"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Type: It is not a Book"
+                        android:gravity="left|center"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <Button
+                    android:id="@+id/activity_detail_buy_now"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="5"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/cyan"
+                    android:text="Rs. 300. Buy now"
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"/>
+                <Button
+                    android:id="@+id/activity_details_read_sample"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="5"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorAccent"
+                    android:text="Read sample"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Text Snippet"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/acticity_details_text_snippet"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dummy_content_two"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book Description"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            discrollve:discrollve_translation="fromRight"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/acticity_details_book_description"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dummy_content"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Written by"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_xl"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="30dp"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_author"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Shiv khera and Shiv khera"
+            android:textColor="@color/content_one"
+            android:textSize="30sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromBottom|fromLeft" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Published by"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_xl"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="10dp"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_publisher"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Dummy book publisher"
+            android:textColor="@color/content_one"
+            android:textSize="30sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromBottom|fromRight" />
+        <TextView
+            android:id="@+id/activity_detail_publish_date"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Published on 23-03-2017"
+            android:textColor="@color/content_one"
+            android:textSize="25sp"
+            android:gravity="center_horizontal|top"
+            android:layout_marginTop="-10dp"
+            discrollve:discrollve_scaleX="true" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Available reading modes"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="20dp"
+            discrollve:discrollve_translation="fromBottom"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_reading_modes"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="ePub and PDF"
+            android:textColor="@color/content_one"
+            android:textSize="30sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Total pages"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="30dp"
+            discrollve:discrollve_translation="fromLeft"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_pages"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="3475"
+            android:textColor="@color/content_one"
+            android:textSize="40sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_scaleY="true"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="This book belongs to"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="30dp"
+            discrollve:discrollve_translation="fromBottom"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_category"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Science and computer science category"
+            android:textColor="@color/content_one"
+            android:textSize="25sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_scaleY="true"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Maturity rating"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="30dp"
+            discrollve:discrollve_scaleY="true"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_maturity"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Not mature"
+            android:textColor="@color/content_one"
+            android:textSize="40sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="Book ratings info"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="30dp"
+            discrollve:discrollve_translation="fromBottom|fromRight"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_rating_text"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="This book got 4.2 rating and total 20 persons rate this book"
+            android:textColor="@color/content_one"
+            android:textSize="20sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromBottom|fromLeft"
+            discrollve:discrollve_alpha="true"/>
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:background="#5a3b9c"
+            android:layout_gravity="center"
+            discrollve:discrollve_translation="fromBottom"
+            discrollve:discrollve_alpha="true">
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/activity_detail_language"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="This book written in ENGLISH language"
+            android:textColor="@color/content_one"
+            android:textSize="20sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_isbn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="ISBN-13: 1234567890, ISBN-10: 9876543210"
+            android:textColor="@color/content_one"
+            android:textSize="20sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_translation="fromTop"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Book price is"
+            android:textColor="@color/content_title"
+            android:textSize="@dimen/header_m"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="20dp"
+            discrollve:discrollve_scaleY="true"
+            discrollve:discrollve_alpha="true"/>
+        <TextView
+            android:id="@+id/activity_detail_price"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="300 INR"
+            android:textColor="@color/content_one"
+            android:textSize="50sp"
+            android:gravity="center_horizontal|top"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <Button
+            android:id="@+id/activity_details_button_buy"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Buy this book"
+            android:textSize="20sp"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_alpha="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#c5c5c5"/>
+
+
+    </us.egek.discrollview2.DiscrollViewContent>
+</us.egek.discrollview2.DiscrollView>
