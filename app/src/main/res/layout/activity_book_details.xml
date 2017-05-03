@@ -56,14 +56,14 @@
                 android:orientation="horizontal"
                 android:weightSum="10">
                 <Button
-                    android:id="@+id/activity_detail_buy_now"
+                    android:id="@+id/activity_detail_search_deep_web"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="5"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="2dp"
                     android:background="@color/cyan"
-                    android:text="Rs. 300. Buy now"
+                    android:text="Search in Deep Web"
                     android:textSize="15sp"
                     android:textColor="#FFFFFF"/>
                 <Button

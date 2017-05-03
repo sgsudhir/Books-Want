@@ -7,8 +7,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.imca2017.bookswant.pojo.deepdata.DeepDataContainer;
+import com.imca2017.bookswant.pojo.deepdata.SearchObjects;
 import com.imca2017.bookswant.pojo.search.SearchResults;
 import com.imca2017.bookswant.utils.LruBitmapCache;
+
+import java.util.List;
 
 public class AppController extends Application {
 
@@ -18,7 +22,7 @@ public class AppController extends Application {
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
 	private SearchResults mSearchResults;
-
+	private SearchObjects deepSearchObjects;
 	private static AppController mInstance;
 
 	@Override
@@ -37,6 +41,14 @@ public class AppController extends Application {
 
 	public SearchResults getmSearchResultsObject() {
 		return this.mSearchResults;
+	}
+
+	public void initDeepSearchObjects() {
+		deepSearchObjects = new SearchObjects();
+	}
+
+	public SearchObjects getDeepSearchObjectses() {
+		return this.deepSearchObjects;
 	}
 
 	public RequestQueue getRequestQueue() {

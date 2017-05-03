@@ -1,6 +1,9 @@
 package com.imca2017.bookswant;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +14,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imca2017.bookswant.app.AppController;
+import com.imca2017.bookswant.pojo.deepdata.DeepDataContainer;
+import com.imca2017.bookswant.pojo.deepdata.SearchObjects;
 import com.imca2017.bookswant.pojo.search.Item;
 import com.imca2017.bookswant.pojo.search.SearchResults;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDetailsActivity extends AppCompatActivity {
@@ -23,9 +34,11 @@ public class BookDetailsActivity extends AppCompatActivity {
             textViewPublishedBy, textViewPublishedDate, textViewAvailableReadingModes, textViewTotalPages,
             textViewCategories, textViewMaturityRating, textViewRatingText, textViewLanguage, textViewIsbnDetails,
             textViewPrice;
-    Button buttonBuyNow, buttonReadSample, buttonBuy, buttonShare, buttonPlayInfo;
+    Button buttonSearchDeepWeb, buttonReadSample, buttonBuy, buttonShare, buttonPlayInfo;
 
     int resultIndex;
+    String bookSampleUrl, slugBookTitle, searchUrl;
+    boolean htmlParseSucess = false;
     Intent intent;
 
     @Override
@@ -36,6 +49,8 @@ public class BookDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_details);
 
         imageViewBookImage = (ImageView) findViewById(R.id.activity_detail_image);
+        buttonReadSample = (Button) findViewById(R.id.activity_details_read_sample);
+        buttonSearchDeepWeb = (Button) findViewById(R.id.activity_detail_search_deep_web);
 
         textViewBookTitle = (TextView) findViewById(R.id.activity_detail_book_title);
         textViewIsBook = (TextView) findViewById(R.id.activity_is_book_);
@@ -53,19 +68,102 @@ public class BookDetailsActivity extends AppCompatActivity {
         textViewIsbnDetails = (TextView) findViewById(R.id.activity_detail_isbn);
         textViewPrice = (TextView) findViewById(R.id.activity_detail_price);
 
-        buttonBuyNow = (Button) findViewById(R.id.activity_detail_buy_now);
-        buttonReadSample = (Button) findViewById(R.id.activity_details_read_sample);
-
-/*        try {
-            showContentsOnView(resultIndex);
-        } catch (Exception e) {
-            Toast.makeText(getApplication(), "Error while fetching book details", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-            this.finish();
-        }
-*/
         showContentsOnView(resultIndex);
+
+        buttonReadSample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(bookSampleUrl));
+                startActivity(browserIntent);
+            }
+        });
+
+        buttonSearchDeepWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FetchDeepData().execute();
+            }
+        });
     }
+
+    private class FetchDeepData extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            parseHTML();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startDeepWebResultActivity();
+        }
+    }
+
+    private void startDeepWebResultActivity() {
+        if (htmlParseSucess) {
+            startActivity(new Intent(BookDetailsActivity.this, DeepWebResultActivity.class));
+        }
+    }
+
+    private void parseHTML() {
+        htmlParseSucess = false;
+        AppController.getInstance().initDeepSearchObjects();
+        SearchObjects objects = AppController.getInstance().getDeepSearchObjectses();
+                searchUrl = "http://gen.lib.rus.ec/search.php?req=" + slugBookTitle;
+        String link;
+        try {
+            Document document = Jsoup.connect(searchUrl).get();
+            Element element = document.getElementsByClass("c").first();
+            Elements tbodies = element.getElementsByTag("tbody");
+            Elements tableRows = tbodies.get(0).getElementsByTag("tr");
+
+            List<DeepDataContainer> searchObjects = new ArrayList<>();
+            for (int i = 1; i < tableRows.size(); i++) {
+                DeepDataContainer container = new DeepDataContainer();
+
+                Elements tableData = tableRows.get(i).getElementsByTag("td");
+                container.setAuthors(tableData.get(1).getElementsByTag("a").text());
+                container.setTitle(tableData.get(2).getElementsByTag("a").text());
+                container.setYear(tableData.get(4).text());
+                container.setPages(tableData.get(5).text());
+                container.setSize(tableData.get(7).text());
+                container.setType(tableData.get(8).text());
+                container.setMirrorLink(tableData.get(9).getElementsByTag("a").attr("href"));
+                link = null;
+                try {
+                    Document doc = Jsoup.connect(tableData.get(9).getElementsByTag("a").attr("href")).get();
+                    link = doc.getElementsByTag("table").get(0)
+                            .getElementsByTag("tbody").get(0).getElementsByTag("tr").get(0)
+                            .getElementsByTag("td").get(2)
+                            .getElementsByTag("a").attr("href");
+                    link = "http://libgen.io" + link;
+                    Log.d("|-|-|- Download -|-|-|", link + "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                container.setDownloadLink(link);
+
+                searchObjects.add(container);
+
+                Log.d("--Year: ---", tableData.get(4).text() + "||");
+                Log.d("--Page: ---", tableData.get(5).text() + "||");
+                Log.d("--Size: ---", tableData.get(7).text() + "||");
+                Log.d("--Type: ---", tableData.get(8).text() + "||");
+                Log.d("--Authors--", tableData.get(1).getElementsByTag("a").text() + "||");
+                Log.d("--Title--", tableData.get(2).getElementsByTag("a").text() + "||");
+                Log.d("--Mirror--", tableData.get(9).getElementsByTag("a").attr("href") + "||");
+            }
+
+            objects.setNodes(searchObjects);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        htmlParseSucess = true;
+    }
+
 
     private void showContentsOnView(int index) {
         String bookTitle, printType, textSnippet, description, author, publisher, publishedOn,
@@ -92,9 +190,12 @@ public class BookDetailsActivity extends AppCompatActivity {
         price = null;
         buyNowLink = null;
         imageLink = null;
+        bookSampleUrl = null;
+        slugBookTitle = null;
 
         try {
             bookTitle = item.getVolumeInfo().getTitle();
+            slugBookTitle = bookTitle.replaceAll(" ", "+");
             try {
                 bookTitle = bookTitle + ": " + item.getVolumeInfo().getSubtitle();
                 bookTitle = bookTitle.replaceAll("null", "");
@@ -181,7 +282,7 @@ public class BookDetailsActivity extends AppCompatActivity {
         try {
             category = item.getVolumeInfo().getCategories().get(0) + " category";
             try {
-                category = category + " and " + item.getVolumeInfo().getCategories().get(1) + " categories";
+                category = category + " and " + item.getVolumeInfo().getCategories().get(0) + " categories";
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -239,6 +340,11 @@ public class BookDetailsActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            bookSampleUrl = item.getVolumeInfo().getInfoLink();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         textViewBookTitle.setText(bookTitle);
         textViewIsBook.setText(printType);
@@ -258,4 +364,5 @@ public class BookDetailsActivity extends AppCompatActivity {
         Picasso.with(this).load(imageLink).into(imageViewBookImage);
 
     }
+
 }
