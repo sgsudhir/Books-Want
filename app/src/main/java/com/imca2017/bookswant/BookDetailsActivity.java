@@ -25,6 +25,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,15 +104,14 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     private void startDeepWebResultActivity() {
         if (htmlParseSucess) {
-            startActivity(new Intent(BookDetailsActivity.this, DeepWebResultActivity.class));
+            Intent resultIntent = new Intent(BookDetailsActivity.this, DeepWebResultActivity.class);
+            startActivity(resultIntent);
         }
     }
 
     private void parseHTML() {
         htmlParseSucess = false;
-        AppController.getInstance().initDeepSearchObjects();
-        SearchObjects objects = AppController.getInstance().getDeepSearchObjectses();
-                searchUrl = "http://gen.lib.rus.ec/search.php?req=" + slugBookTitle;
+        searchUrl = "http://gen.lib.rus.ec/search.php?req=" + slugBookTitle;
         String link;
         try {
             Document document = Jsoup.connect(searchUrl).get();
@@ -124,12 +124,13 @@ public class BookDetailsActivity extends AppCompatActivity {
                 DeepDataContainer container = new DeepDataContainer();
 
                 Elements tableData = tableRows.get(i).getElementsByTag("td");
-                container.setAuthors(tableData.get(1).getElementsByTag("a").text());
-                container.setTitle(tableData.get(2).getElementsByTag("a").text());
-                container.setYear(tableData.get(4).text());
-                container.setPages(tableData.get(5).text());
-                container.setSize(tableData.get(7).text());
-                container.setType(tableData.get(8).text());
+
+                container.setAuthors("Author: " + tableData.get(1).getElementsByTag("a").text());
+                container.setTitle("Title: " + tableData.get(2).getElementsByTag("a").text());
+                container.setYear("Year: " + tableData.get(4).text());
+                container.setPages("Pages: " + tableData.get(5).text());
+                container.setSize("Size: " + tableData.get(7).text());
+                container.setType("Type: " + tableData.get(8).text());
                 container.setMirrorLink(tableData.get(9).getElementsByTag("a").attr("href"));
                 link = null;
                 try {
@@ -155,8 +156,9 @@ public class BookDetailsActivity extends AppCompatActivity {
                 Log.d("--Title--", tableData.get(2).getElementsByTag("a").text() + "||");
                 Log.d("--Mirror--", tableData.get(9).getElementsByTag("a").attr("href") + "||");
             }
-
-            objects.setNodes(searchObjects);
+            SearchObjects objs = new SearchObjects();
+            AppController.getInstance().initSearchObjects(objs);
+            AppController.getInstance().getDeepSearchObjectses().setNodes(searchObjects);
 
         } catch (Exception e) {
             e.printStackTrace();

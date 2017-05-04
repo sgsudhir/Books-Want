@@ -22,7 +22,7 @@ public class AppController extends Application {
 	private RequestQueue mRequestQueue;
 	private ImageLoader mImageLoader;
 	private SearchResults mSearchResults;
-	private SearchObjects deepSearchObjects;
+	private SearchObjects searchObjects;
 	private static AppController mInstance;
 
 	@Override
@@ -43,12 +43,12 @@ public class AppController extends Application {
 		return this.mSearchResults;
 	}
 
-	public void initDeepSearchObjects() {
-		deepSearchObjects = new SearchObjects();
+	public void initSearchObjects(SearchObjects objects) {
+		this.searchObjects = objects;
 	}
 
 	public SearchObjects getDeepSearchObjectses() {
-		return this.deepSearchObjects;
+		return this.searchObjects;
 	}
 
 	public RequestQueue getRequestQueue() {
