@@ -1,6 +1,8 @@
 package com.imca2017.bookswant;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -61,16 +63,18 @@ public class DeepWebResultActivity extends AppCompatActivity {
                 DeepDataContainer container = AppController.getInstance().getDeepSearchObjectses().getNodes().get(position);
                 String url = container.getDownloadLink();
                 Toast.makeText(getApplicationContext(), url + "", Toast.LENGTH_SHORT).show();
-                ProgressDialog progressDialog = new ProgressDialog(DeepWebResultActivity.this);
-                String path =  (Math.random() * 9) + ".pdf";
-                path = path.replaceAll("( )+", "+");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+/*                ProgressDialog progressDialog = new ProgressDialog(DeepWebResultActivity.this);
+                String path =  (Math.random() * 9) + "." + container.getType();
+                path = path.replaceAll("( )+", "");
                 try {
                     new DownloadFromUrl(progressDialog, path)
                             .execute(container.getDownloadLink());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+*/            }
         });
     }
 

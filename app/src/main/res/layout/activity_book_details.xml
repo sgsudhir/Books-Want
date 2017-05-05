@@ -343,16 +343,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="100dp" />
-
-        <Button
-            android:id="@+id/activity_details_button_buy"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Buy this book"
-            android:textSize="20sp"
-            discrollve:discrollve_scaleX="true"
-            discrollve:discrollve_alpha="true"/>
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="300dp" />

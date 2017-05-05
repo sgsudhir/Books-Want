@@ -47,7 +47,7 @@ public class DownloadFromUrl extends AsyncTask<String, String, String>{
             InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
             File file = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS), "/abc.pdf");
+                    Environment.DIRECTORY_DOWNLOADS), path);
             if (!file.mkdirs()) {
                 Log.e("Print", "Directory not created");
             }

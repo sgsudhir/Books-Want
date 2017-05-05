@@ -1,5 +1,6 @@
 package com.imca2017.bookswant;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -82,12 +83,19 @@ public class BookDetailsActivity extends AppCompatActivity {
         buttonSearchDeepWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FetchDeepData().execute();
+                new FetchDeepData(BookDetailsActivity.this).execute();
             }
         });
     }
 
     private class FetchDeepData extends AsyncTask<Void, Void, Void> {
+        Context context;
+        ProgressDialog dialog;
+        FetchDeepData(Context context) {
+            this.context = context;
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Pleasw wait while getting results ...");
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -98,7 +106,14 @@ public class BookDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            dialog.hide();
             startDeepWebResultActivity();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.show();
         }
     }
 
